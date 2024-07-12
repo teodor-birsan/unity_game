@@ -6,11 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     private InputHandler _input;
 
-    [SerializeField] private float moveSpeed;
+    private float moveSpeed = 10f;
     public new Camera camera;
-    [SerializeField] private float rotateSpeed;
-    /*[SerializeField]
-    private bool roateTowardMouse;*/
+    public GameObject projectilePrefab;
 
     // Start is called before the first frame update
     private void Awake()
@@ -18,15 +16,16 @@ public class PlayerController : MonoBehaviour
         _input = GetComponent<InputHandler>();
     }
 
-    /*    void Start()
+       void Start()
         {
 
-        }*/
+        }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
+        ShootProjectile();
     }
 
     private void MovePlayer()
@@ -35,12 +34,6 @@ public class PlayerController : MonoBehaviour
         var movmentVector = MoveTowardTarget(targetVector);
         RotateTowardsMouse();
 
-        /*      if (!roateTowardMouse)
-                  RotatateTowardMovmentVector(movmentVector);
-              else
-              {
-                  RotateTowardsMouse();
-              }*/
     }
 
     private void RotateTowardsMouse()
@@ -54,13 +47,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RotatateTowardMovmentVector(Vector3 movmentVector)
-    {
-        if (movmentVector.magnitude == 0) { return; }
-        var rotation = Quaternion.LookRotation(movmentVector);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed);
-    }
-
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {
         var speed = moveSpeed * Time.deltaTime;
@@ -68,5 +54,13 @@ public class PlayerController : MonoBehaviour
         var targetPosition = transform.position + targetVector * speed;
         transform.position = targetPosition;
         return targetVector;
+    }
+
+    private void ShootProjectile()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Instantiate(projectilePrefab, transform.position, transform.rotation);
+        }
     }
 }
