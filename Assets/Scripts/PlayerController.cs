@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,7 +9,9 @@ public class PlayerController : MonoBehaviour
 
     private float moveSpeed = 10f;
     public new Camera camera;
-    public GameObject projectilePrefab;
+    //public GameObject projectilePrefab;
+    public List<GameObject> projectilePrefab = new List<GameObject>();
+    private int projectileIndex = 0;
 
     // Start is called before the first frame update
     private void Awake()
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer();
         ShootProjectile();
+        SelectProjectile();
     }
 
     private void MovePlayer()
@@ -58,9 +62,36 @@ public class PlayerController : MonoBehaviour
 
     private void ShootProjectile()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && projectilePrefab.Any())
         {
-            Instantiate(projectilePrefab, transform.position, transform.rotation);
+            Instantiate(projectilePrefab[projectileIndex], transform.position, transform.rotation);
+        }
+    }
+
+
+    private void SelectProjectile()
+    {
+        if(Input.mouseScrollDelta.y > 0)
+        {
+            if(projectileIndex + 1 == projectilePrefab.Count)
+            {
+                projectileIndex = 0;
+            }
+            else
+            {
+                projectileIndex++;
+            }
+        }
+        else if(Input.mouseScrollDelta.y < 0)
+        {
+            if(projectileIndex == 0)
+            {
+                projectileIndex = projectilePrefab.Count - 1;
+            }
+            else
+            {
+                projectileIndex--;
+            }
         }
     }
 }

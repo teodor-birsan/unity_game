@@ -31,7 +31,11 @@ public class ProjectileHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Props") || other.gameObject.CompareTag("Enemy"))
+        if(other.gameObject.CompareTag("Props"))
+        {
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }
