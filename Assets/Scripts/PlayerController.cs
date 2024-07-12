@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     //public GameObject projectilePrefab;
     public List<GameObject> projectilePrefab = new List<GameObject>();
     private int projectileIndex = 0;
+    public GameObject equipedProjectile;
 
     // Start is called before the first frame update
     private void Awake()
@@ -93,5 +94,6 @@ public class PlayerController : MonoBehaviour
                 projectileIndex--;
             }
         }
+        equipedProjectile = projectilePrefab[projectileIndex];
     }
 }

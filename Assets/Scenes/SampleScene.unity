@@ -544,6 +544,7 @@ MonoBehaviour:
   projectilePrefab:
   - {fileID: 8014999102182539532, guid: ec69c580dc1f9a54facc1c4fad296051, type: 3}
   - {fileID: 2905517641433150432, guid: dc1dd0a7bef5c3741ad1f5456835118c, type: 3}
+  equipedProjectile: {fileID: 0}
 --- !u!114 &189807560
 MonoBehaviour:
   m_ObjectHideFlags: 0
