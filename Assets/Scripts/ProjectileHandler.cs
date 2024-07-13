@@ -8,6 +8,7 @@ public class ProjectileHandler : MonoBehaviour
     public float projectileSpeed;
     public float projectileDamage;
     public float projectileTime;
+    public float delay;
 
 
     // Start is called before the first frame update
