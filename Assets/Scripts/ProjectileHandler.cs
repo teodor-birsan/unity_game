@@ -38,7 +38,7 @@ public class ProjectileHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+ 
     // The projectile is destroyed after the projectileTime has passed.
     private void DestroyProjectile()
     {

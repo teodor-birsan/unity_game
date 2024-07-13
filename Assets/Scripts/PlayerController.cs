@@ -83,6 +83,11 @@ public class PlayerController : MonoBehaviour
             // and has the same roatation as the player.
             Instantiate(projectilePrefab[projectileIndex], transform.position, transform.rotation);
         }
+
+        if(Input.GetMouseButtonDown(0) && !projectilePrefab.Any())
+        {
+            Debug.Log("You have no projectiles!\n");
+        }
     }
 
 
