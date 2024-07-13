@@ -30,17 +30,15 @@ public class ProjectileHandler : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Props"))
-        {
-            Destroy(gameObject);
-        }
-        else if (other.gameObject.CompareTag("Enemy"))
+    {   
+        // If the projectile collides with a game object that has the "Props" or "Enemy" tag it will be destroyed.
+        if(other.gameObject.CompareTag("Props") || other.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
         }
     }
-
+    
+    // The projectile is destroyed after the projectileTime has passed.
     private void DestroyProjectile()
     {
         Destroy(gameObject, projectileTime);

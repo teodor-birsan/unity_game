@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    /* A vector which stores data on the input from the player.
-     * 
-     */
     public Vector2 InputVector { get; private set; }
     public Vector3 MousePosition { get; private set; }
 
