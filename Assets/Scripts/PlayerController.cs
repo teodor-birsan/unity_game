@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     // InputHandler reference
     private InputHandler _input;
     // The movement speed of the player.
-    private float moveSpeed = 10f;
+    private float moveSpeed = 7f;
     // Player camera
     public new Camera camera;
     // A list of projectile prefabs.
@@ -44,10 +44,12 @@ public class PlayerController : MonoBehaviour
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            // Running
             MoveTowardTarget(targetVector, runningSpeed);
         }
         else
         {
+            // Walking
             MoveTowardTarget(targetVector,moveSpeed);
         }
         RotateTowardsMouse();
