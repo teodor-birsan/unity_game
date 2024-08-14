@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private int projectileIndex;
     // The equipped projectile
     public GameObject equipedProjectile;
-    private Rigidbody playerRigidbody;
-    private float runningSpeed = 15f;
+    private CharacterController characterController;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
        void Start()
         {
-            playerRigidbody = GetComponent<Rigidbody>();
+            characterController = GetComponent<CharacterController>();
         }
 
     // Update is called once per frame
@@ -42,16 +42,7 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            // Running
-            MoveTowardTarget(targetVector, runningSpeed);
-        }
-        else
-        {
-            // Walking
-            MoveTowardTarget(targetVector,moveSpeed);
-        }
+        MoveTowardTarget(targetVector);
         RotateTowardsMouse();
 
     }
@@ -71,14 +62,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MoveTowardTarget(Vector3 targetVector, float moveSpeed)
+    private void MoveTowardTarget(Vector3 targetVector)
     {
 
         // Rotates the movment vector along the y axis
         targetVector = Quaternion.Euler(0, transform.eulerAngles.y, 0) * targetVector;
 
-        // Pushes the player in the direction of the targetVector
-        playerRigidbody.AddForce(targetVector * moveSpeed);
+        // Moves the character in the direction of targetVector
+        characterController.SimpleMove(targetVector * moveSpeed);
     }
 
     // When left click is pressed a projectile prefab is created
