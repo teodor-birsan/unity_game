@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
         // Rotates the movment vector along the y axis
         targetVector = Quaternion.Euler(0, transform.eulerAngles.y, 0) * targetVector;
-        
+
         // Pushes the player in the direction of the targetVector
         playerRigidbody.AddForce(targetVector * moveSpeed);
     }
