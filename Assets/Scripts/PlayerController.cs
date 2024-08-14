@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     // InputHandler reference
     private InputHandler _input;
     // The movement speed of the player.
-    private float moveSpeed = 10f;
+    private float moveSpeed = 7f;
     // Player camera
     public new Camera camera;
     // A list of projectile prefabs.
@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private int projectileIndex;
     // The equipped projectile
     public GameObject equipedProjectile;
+    private Rigidbody playerRigidbody;
+    private float runningSpeed = 15f;
 
     // Start is called before the first frame update
     private void Awake()
@@ -26,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
        void Start()
         {
-
+            playerRigidbody = GetComponent<Rigidbody>();
         }
 
     // Update is called once per frame
@@ -40,7 +42,16 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
-        MoveTowardTarget(targetVector);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            // Running
+            MoveTowardTarget(targetVector, runningSpeed);
+        }
+        else
+        {
+            // Walking
+            MoveTowardTarget(targetVector,moveSpeed);
+        }
         RotateTowardsMouse();
 
     }
@@ -60,18 +71,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MoveTowardTarget(Vector3 targetVector)
+    private void MoveTowardTarget(Vector3 targetVector, float moveSpeed)
     {
-        // The speed is constant every second, not every frame
-        var speed = moveSpeed * Time.deltaTime;
 
         // Rotates the movment vector along the y axis
         targetVector = Quaternion.Euler(0, transform.eulerAngles.y, 0) * targetVector;
-
-        // Calculates where the player should be afer one of the WASD keys is pressed
-        var targetPosition = transform.position + targetVector * speed;
-        //Updates the position of the player
-        transform.position = targetPosition;
+        
+        // Pushes the player in the direction of the targetVector
+        playerRigidbody.AddForce(targetVector * moveSpeed);
     }
 
     // When left click is pressed a projectile prefab is created
