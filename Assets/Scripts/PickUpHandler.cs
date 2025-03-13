@@ -19,10 +19,12 @@ public class PickUpHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!playerController.projectilePrefab.Find(place => place.gameObject == projectile))
+        if (playerController.projectilePrefabV2.Find(projectile) == null)
         {
-            playerController.projectilePrefab.Add(projectile);
-            playerController.setProjectileIndex();
+            playerController.projectilePrefabV2.AddLast(new LinkedListNode<GameObject>(projectile));
+            if(playerController.equipedProjectile == null){
+                playerController.equipedProjectile = projectile;
+            }
             Destroy(gameObject);
         }
         else
