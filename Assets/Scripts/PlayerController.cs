@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     public new Camera camera;
     // A list of projectile prefabs.
     public LinkedList<GameObject> projectilePrefabV2 = new LinkedList<GameObject>();
-    public GameObject firstItem;
-    public GameObject lastItem;
     // The equipped projectile
     public GameObject equipedProjectile;
 
@@ -27,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        equipedProjectile = projectilePrefabV2.First.Value;
+
     }
 
     // Update is called once per frame
@@ -36,9 +34,6 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         ShootProjetile();
         CycleProjectileList();
-        firstItem = projectilePrefabV2.First.Value;
-        lastItem = projectilePrefabV2.Last.Value;
-
     }
 
     private void MovePlayer()
@@ -88,17 +83,19 @@ public class PlayerController : MonoBehaviour
         if(projectilePrefabV2.Count > 0){
             if(Input.mouseScrollDelta.y > 0){
                 if(equipedProjectile.Equals(projectilePrefabV2.Last.Value)){
-                    Debug.Log("This is the last item.");
                     equipedProjectile = projectilePrefabV2.First.Value;
                 }
-                equipedProjectile = projectilePrefabV2.Find(equipedProjectile).Next.Value;
+                else{
+                    equipedProjectile = projectilePrefabV2.Find(equipedProjectile).Next.Value;
+                }
             }
             if(Input.mouseScrollDelta.y < 0){
                 if(equipedProjectile.Equals(projectilePrefabV2.First.Value)){
-                    Debug.Log("This is the first item.");
                     equipedProjectile = projectilePrefabV2.Last.Value;
                 }
-                equipedProjectile = projectilePrefabV2.Find(equipedProjectile).Previous.Value;
+                else{
+                    equipedProjectile = projectilePrefabV2.Find(equipedProjectile).Previous.Value;
+                }
             }
         }
     }
