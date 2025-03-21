@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,13 +9,11 @@ public class PlayerController : MonoBehaviour
     // InputHandler reference
     private InputHandler _input;
     // The movement speed of the player.
-    private float moveSpeed = 10f;
+    private readonly float moveSpeed = 10f;
     // Player camera
     public new Camera camera;
     // A list of projectile prefabs.
-    public List<GameObject> projectilePrefab = new List<GameObject>();
-    // The index of the equipped projectile.
-    private int projectileIndex;
+    public LinkedList<GameObject> projectilePrefabV2 = new LinkedList<GameObject>();
     // The equipped projectile
     public GameObject equipedProjectile;
 
@@ -24,17 +23,17 @@ public class PlayerController : MonoBehaviour
         _input = GetComponent<InputHandler>();
     }
 
-       void Start()
-        {
+    void Start()
+    {
 
-        }
+    }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
-        ShootProjectile();
-        SelectProjectile();
+        ShootProjetile();
+        CycleProjectileList();
     }
 
     private void MovePlayer()
@@ -74,59 +73,31 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPosition;
     }
 
-    // When left click is pressed a projectile prefab is created
-    private void ShootProjectile()
-    {
-        if(Input.GetMouseButtonDown(0) && projectilePrefab.Any())
-        {
-            // Creates the projectile prefab with the index projectileIndex at the player position 
-            // and has the same roatation as the player.
-            Instantiate(projectilePrefab[projectileIndex], transform.position, transform.rotation);
-        }
-
-        if(Input.GetMouseButtonDown(0) && !projectilePrefab.Any())
-        {
-            Debug.Log("You have no projectiles!\n");
+    private void ShootProjetile(){
+        if(equipedProjectile != null && Input.GetMouseButtonDown(0)){
+            Instantiate(equipedProjectile, transform.position, transform.rotation);
         }
     }
 
-
-    private void SelectProjectile()
-    {
-        // Scroll up
-        if(Input.mouseScrollDelta.y > 0)
-        {
-            // If the current projectile is the last in the list, the next one will the the first one,
-            // else the next projectile will be equipped.
-            if(projectileIndex + 1 == projectilePrefab.Count)
-            {
-                projectileIndex = 0;
+    private void CycleProjectileList(){
+        if(projectilePrefabV2.Count > 0){
+            if(Input.mouseScrollDelta.y > 0){
+                if(equipedProjectile.Equals(projectilePrefabV2.Last.Value)){
+                    equipedProjectile = projectilePrefabV2.First.Value;
+                }
+                else{
+                    equipedProjectile = projectilePrefabV2.Find(equipedProjectile).Next.Value;
+                }
             }
-            else
-            {
-                projectileIndex++;
-            }
-        }
-        // Scroll down
-        else if(Input.mouseScrollDelta.y < 0)
-        {
-            // If the current projectile is the first in the list, the previous one will be the last one,
-            // else the previous projectile will be equipped.
-            if(projectileIndex == 0)
-            {
-                projectileIndex = projectilePrefab.Count - 1;
-            }
-            else
-            {
-                projectileIndex--;
+            if(Input.mouseScrollDelta.y < 0){
+                if(equipedProjectile.Equals(projectilePrefabV2.First.Value)){
+                    equipedProjectile = projectilePrefabV2.Last.Value;
+                }
+                else{
+                    equipedProjectile = projectilePrefabV2.Find(equipedProjectile).Previous.Value;
+                }
             }
         }
-        if(projectilePrefab.Any())
-            equipedProjectile = projectilePrefab[projectileIndex];
-    }
-    public void setProjectileIndex()
-    {
-        projectileIndex = 0;
     }
 
 }
