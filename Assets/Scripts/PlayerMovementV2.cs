@@ -7,6 +7,7 @@ public class PlayerMovementV2 : MonoBehaviour
     private Rigidbody rBody;
     private InputHandler inputHandler;
     public new Camera camera;
+    public float speedMultiplier = 1.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +21,7 @@ public class PlayerMovementV2 : MonoBehaviour
     {
         RotateTowardsMouse();
         MovePlayer();
+        Run();
     }
 
     private void RotateTowardsMouse()
@@ -39,6 +41,22 @@ public class PlayerMovementV2 : MonoBehaviour
     }
     private void MovePlayer()
     {
-        rBody.linearVelocity = transform.TransformDirection(movementSpeed * Time.deltaTime * inputHandler.InputVector);
+        if(inputHandler.InputVector.sqrMagnitude == 2)
+        {
+            rBody.linearVelocity = transform.TransformDirection(movementSpeed * 0.7f * Time.deltaTime * inputHandler.InputVector);
+        }
+        else
+        {
+            rBody.linearVelocity = transform.TransformDirection(movementSpeed * Time.deltaTime * inputHandler.InputVector);
+        }
+    }
+    
+    private void Run()
+    {
+        var runningSpeed = movementSpeed * speedMultiplier;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            rBody.AddRelativeForce(runningSpeed * Time.deltaTime * inputHandler.InputVector, ForceMode.Impulse);
+        }
     }
 }
