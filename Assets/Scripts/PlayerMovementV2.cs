@@ -34,7 +34,7 @@ public class PlayerMovementV2 : MonoBehaviour
             target.y = transform.position.y;
             // Rotates the player to the target vector
             transform.LookAt(target);
-            Debug.DrawRay(transform.position, target, Color.red, 5f);
+            //Debug.DrawRay(transform.position, target, Color.red, 5f);
         }
     }
     private void MovePlayer()
