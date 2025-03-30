@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public Vector2 InputVector { get; private set; }
+    public Vector3 InputVector { get; private set; }
     public Vector3 MousePosition { get; private set; }
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class InputHandler : MonoBehaviour
         
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        InputVector = new Vector3(horizontalInput, verticalInput);
+        InputVector = new Vector3(horizontalInput, 0, verticalInput);
         MousePosition = Input.mousePosition;
     }
 }
