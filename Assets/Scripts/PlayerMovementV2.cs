@@ -3,11 +3,11 @@ using UnityEngine;
 public class PlayerMovementV2 : MonoBehaviour
 {
 
-    public float movementSpeed = 5f;
+    public float movementSpeed = 500f;
     private Rigidbody rBody;
     private InputHandler inputHandler;
     public new Camera camera;
-    public float speedMultiplier = 1.5f;
+    public float speedMultiplier = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
