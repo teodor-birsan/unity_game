@@ -5,11 +5,11 @@ using UnityEngine;
 public class PickUpHandler : MonoBehaviour
 {
     public GameObject projectile;
-    private PlayerController playerController;
+    private ShootProjectile shootScript;
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        shootScript = GameObject.Find("Player").GetComponent<ShootProjectile>();
     }
 
     // Update is called once per frame
@@ -19,11 +19,11 @@ public class PickUpHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (playerController.projectilePrefabV2.Find(projectile) == null)
+        if (shootScript.projectilePrefabV2.Find(projectile) == null)
         {
-            playerController.projectilePrefabV2.AddLast(new LinkedListNode<GameObject>(projectile));
-            if(playerController.equipedProjectile == null){
-                playerController.equipedProjectile = projectile;
+            shootScript.projectilePrefabV2.AddLast(new LinkedListNode<GameObject>(projectile));
+            if(shootScript.equipedProjectile == null){
+                shootScript.equipedProjectile = projectile;
             }
             Destroy(gameObject);
         }

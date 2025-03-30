@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1346774443115422117}
   - component: {fileID: 4072937125993328306}
   - component: {fileID: 6708353830002606613}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: TargetDummy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -61,6 +61,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

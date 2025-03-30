@@ -7,12 +7,12 @@ public class EnemyHandler : MonoBehaviour
     // The health of the npc.
     public float health;
     // Reference to the PlayerController script
-    private PlayerController playerRef;
+    private ShootProjectile playerRef;
     // Start is called before the first frame update
     void Start()
     {
         health = 100;
-        playerRef = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerRef = GameObject.Find("Player").GetComponent<ShootProjectile>();
     }
 
     // Update is called once per frame

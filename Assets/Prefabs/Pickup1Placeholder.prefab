@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5704108659011801890}
   - component: {fileID: 1774509921348613289}
   - component: {fileID: 4432108538761232281}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Pickup1Placeholder
   m_TagString: PickUp
   m_Icon: {fileID: 0}
@@ -268,14 +268,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 7098468250387218434
-  m_Size: {x: -0.2641945, y: 0.20416766, z: 1.0309696}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 0
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1100
-  m_ShapeBox:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.13209724, y: 0.10208383, z: 0.5154848}
+  m_Size: {x: -0.2641945, y: 0.20416766, z: 1.0309696}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -299,6 +295,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
